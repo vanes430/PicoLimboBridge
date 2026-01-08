@@ -59,7 +59,7 @@ jobs:
             patch=$((patch + 1))
           fi
           
-          NEW_VERSION="$major.$minor.$patch-SNAPSHOT"
+          NEW_VERSION="$major.$minor.$patch"
           echo "New Version: $NEW_VERSION"
           
           # Update version using Maven Versions Plugin
