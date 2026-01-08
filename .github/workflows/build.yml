@@ -2,7 +2,7 @@ name: Build and Release
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "*" ]
   workflow_dispatch:
@@ -23,6 +23,13 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Get Version from POM
+      id: get_version
+      run: |
+        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "Detected version: $VERSION"
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+
     - name: Build with Maven
       run: mvn clean install
 
@@ -35,10 +42,6 @@ jobs:
         done
         cat sha256sum.txt
 
-    - name: Get Short SHA
-      id: slug
-      run: echo "sha8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
-
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -47,14 +50,14 @@ jobs:
           target/picolimbobridge-*.jar
           target/sha256sum.txt
 
-    - name: Update Latest Release
-      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    - name: Create/Update Release
+      if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        automatic_release_tag: "${{ steps.get_version.outputs.version }}"
         prerelease: false
-        title: "Dev Build ${{ steps.slug.outputs.sha8 }}"
+        title: "Release ${{ steps.get_version.outputs.version }}"
         files: |
           target/picolimbobridge-*.jar
           target/sha256sum.txt

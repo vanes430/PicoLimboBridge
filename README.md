@@ -23,14 +23,15 @@ Designed for **Spigot/Paper**, **Folia**, and **Velocity**, this plugin eliminat
 *   **📝 Console Integration**: View PicoLimbo's logs directly in your main server's console—no need to switch windows.
 *   **⚙️ Dynamic Configuration**: Change the binding port on the fly using command arguments; `server.toml` is updated automatically.
 *   **🔒 Integrity Protection**: Automatically verifies the SHA-256 hash of the PicoLimbo binary against a trusted upstream source. If a mismatch or corruption is detected, it self-heals by re-downloading the correct version.
-*   **🔄 Auto-Update**: built-in tools to reinstall or upgrade to the latest binary with a single command.
+*   **🔔 Update Checker**: Stay informed with polite, non-intrusive notifications when a new version of the bridge is available on GitHub/Modrinth.
+*   **🔄 Auto-Binary-Update**: built-in tools to reinstall or upgrade to the latest PicoLimbo binary with a single command.
 *   **🌐 Multi-Platform**: One bridge to rule them all—fully compatible with Spigot, Paper, Folia, and Velocity.
 
 ## 📦 Installation
 
-1.  **Download** the appropriate artifact for your platform:
-    *   **Spigot/Paper/Folia**: `picolimbobridge-spigot-1.0.0-SNAPSHOT.jar`
-    *   **Velocity**: `picolimbobridge-velocity-1.0.0-SNAPSHOT.jar`
+1.  **Download** the appropriate artifact for your platform from [Releases](https://github.com/vanes430/PicoLimboBridge/releases):
+    *   **Spigot/Paper/Folia**: `picolimbobridge-spigot-1.0.0.jar`
+    *   **Velocity**: `picolimbobridge-velocity-1.0.0.jar`
 2.  **Drop** the jar file into your server's `plugins` folder.
 3.  **Start** your server. That's it!
 
@@ -64,8 +65,8 @@ mvn clean install
 ```
 
 The compiled jars will be located in:
-*   `spigot/target/picolimbobridge-spigot-1.0.0-SNAPSHOT.jar`
-*   `velocity/target/picolimbobridge-velocity-1.0.0-SNAPSHOT.jar`
+*   `spigot/target/picolimbobridge-spigot-1.0.0.jar`
+*   `velocity/target/picolimbobridge-velocity-1.0.0.jar`
 
 ## 🏆 Credits
 

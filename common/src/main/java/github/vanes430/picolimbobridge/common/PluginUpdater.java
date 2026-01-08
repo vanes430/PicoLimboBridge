@@ -78,12 +78,11 @@ public class PluginUpdater {
             String localHash = BridgeUtils.calculateSha256(pluginJar);
             
             if (localHash.equalsIgnoreCase(expectedHash)) {
-                logger.info("§aPlugin is up to date (" + localHash.substring(0, 8) + ")");
+                logger.info("§aYou are running the latest version: " + tagName + " ..");
             } else {
-                logger.warning("§cPlugin version outdated!");
-                logger.warning("§7Current Hash: " + localHash.substring(0, 8));
-                logger.warning("§7Latest Hash:  " + expectedHash.substring(0, 8));
-                logger.warning("§ePlease update at: §n" + MODRINTH_URL);
+                logger.warning("§eA new update is available: " + tagName + " ..");
+                logger.warning("§7Please consider updating to get the latest features and fixes.");
+                logger.warning("§bDownload here: §n" + MODRINTH_URL);
             }
 
         } catch (Exception e) {
