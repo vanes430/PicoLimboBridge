@@ -26,6 +26,10 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
+    - name: Get Short SHA
+      id: slug
+      run: echo "sha8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
+
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -39,5 +43,5 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         prerelease: false
-        title: "Latest Development Build"
+        title: "Dev Build ${{ steps.slug.outputs.sha8 }}"
         files: target/picolimbobridge-*.jar
