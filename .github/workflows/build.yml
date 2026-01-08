@@ -50,14 +50,32 @@ jobs:
           target/picolimbobridge-*.jar
           target/sha256sum.txt
 
-    - name: Create/Update Release
+    - name: Update Tag and Release
       if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-      uses: marvinpinto/action-automatic-releases@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VERSION: ${{ steps.get_version.outputs.version }}
+      run: |
+        # Konfigurasi Git
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # Hapus tag lama jika ada (remote & local) untuk memindahkan 'pointer' ke commit ini
+        git tag -d "$VERSION" || true
+        git push origin ":refs/tags/$VERSION" || true
+        
+        # Buat tag baru di commit saat ini
+        git tag -a "$VERSION" -m "Release $VERSION"
+        git push origin "$VERSION"
+
+    - name: Publish Release
+      if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+      uses: softprops/action-gh-release@v1
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "${{ steps.get_version.outputs.version }}"
-        prerelease: false
-        title: "Release ${{ steps.get_version.outputs.version }}"
+        tag_name: ${{ steps.get_version.outputs.version }}
+        name: Release ${{ steps.get_version.outputs.version }}
         files: |
           target/picolimbobridge-*.jar
           target/sha256sum.txt
+        generate_release_notes: true
+        prerelease: false
