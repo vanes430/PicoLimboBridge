@@ -1,0 +1,10 @@
+{
+  "id": "picolimbobridge",
+  "name": "PicoLimboBridge",
+  "version": "${project.version}",
+  "description": "A bridge plugin for PicoLimbo on Velocity",
+  "authors": [
+    "vanes430"
+  ],
+  "main": "github.vanes430.picolimbobridge.velocity.PicoLimboBridgeVelocity"
+}

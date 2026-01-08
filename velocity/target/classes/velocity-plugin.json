@@ -1,0 +1,1 @@
+{"id":"picolimbobridge","name":"PicoLimboBridge","version":"1.0.0-SNAPSHOT","description":"A bridge plugin for PicoLimbo on Velocity","authors":["vanes430"],"dependencies":[],"main":"github.vanes430.picolimbobridge.velocity.PicoLimboBridgeVelocity"}
