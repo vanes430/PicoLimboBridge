@@ -24,6 +24,7 @@ import java.util.zip.ZipFile;
 public class PicoLimboManager {
 
     private static final String GITHUB_API_URL = "https://api.github.com/repos/Quozul/PicoLimbo/releases/latest";
+    private static final String HASHES_URL = "https://raw.githubusercontent.com/vanes430/PicoLimboBridge/refs/heads/main/sha256/latest.txt";
     private final Path rootDir;
     private final PicoLogger logger;
     private Process process;
@@ -46,7 +47,11 @@ public class PicoLimboManager {
                 Files.createDirectories(rootDir);
             }
 
-            // Install only if binary is missing
+            // Verify binary integrity (check hash)
+            // This handles missing binaries or hash mismatches by forcing a reinstall
+            verifyBinaryIntegrity();
+
+            // Install only if binary is missing (redundant if verifyBinaryIntegrity works, but safe)
             if (!Files.exists(getBinaryPath())) {
                 checkForUpdatesAndInstall();
             }
@@ -375,5 +380,78 @@ public class PicoLimboManager {
                 }
             }
         }
+    }
+
+    private void verifyBinaryIntegrity() {
+        Path binaryPath = getBinaryPath();
+        if (!Files.exists(binaryPath)) {
+            return; // Will be installed by checkForUpdatesAndInstall
+        }
+
+        try {
+            logger.info("§eVerifying PicoLimbo binary integrity...");
+            String expectedHash = fetchExpectedHash();
+            if (expectedHash == null) {
+                logger.warning("§cCould not fetch expected hash. Skipping integrity check.");
+                return;
+            }
+
+            String localHash = calculateSha256(binaryPath);
+            if (!localHash.equalsIgnoreCase(expectedHash)) {
+                logger.warning("§cHash mismatch detected!");
+                logger.warning("§7Expected: " + expectedHash);
+                logger.warning("§7Found:    " + localHash);
+                logger.warning("§eRe-downloading binary to ensure authenticity...");
+                
+                // Delete binary and version file to force update
+                Files.deleteIfExists(binaryPath);
+                Files.deleteIfExists(rootDir.resolve("version.txt"));
+                
+                checkForUpdatesAndInstall();
+            } else {
+                logger.info("§aBinary integrity verified.");
+            }
+        } catch (Exception e) {
+            logger.warning("§cError verifying binary integrity: " + e.getMessage());
+        }
+    }
+
+    private String fetchExpectedHash() {
+        try {
+            String content = fetchUrl(HASHES_URL);
+            String osKey = getOsKey();
+            String archKey = getArchKey();
+            String key = osKey + "-" + archKey;
+
+            try (BufferedReader reader = new BufferedReader(new StringReader(content))) {
+                String line;
+                boolean inLatestSection = true; // Assuming start at latest
+                while ((line = reader.readLine()) != null) {
+                    if (line.contains("PREVIOUS VERSION")) {
+                        inLatestSection = false;
+                    }
+                    
+                    if (inLatestSection && line.startsWith(key + ":")) {
+                        return line.split(":")[1].trim();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            logger.warning("§cFailed to fetch hashes: " + e.getMessage());
+        }
+        return null;
+    }
+
+    private String calculateSha256(Path path) throws IOException, java.security.NoSuchAlgorithmException {
+        java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
+        try (InputStream fis = Files.newInputStream(path);
+             java.security.DigestInputStream dis = new java.security.DigestInputStream(fis, digest)) {
+            while (dis.read() != -1) ; // Read all bytes
+        }
+        StringBuilder result = new StringBuilder();
+        for (byte b : digest.digest()) {
+            result.append(String.format("%02x", b));
+        }
+        return result.toString();
     }
 }
