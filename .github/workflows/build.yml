@@ -26,6 +26,15 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
+    - name: Generate SHA256 Hashes
+      run: |
+        cd target
+        touch sha256sum.txt
+        for f in picolimbobridge-*.jar; do
+          sha256sum "$f" >> sha256sum.txt
+        done
+        cat sha256sum.txt
+
     - name: Get Short SHA
       id: slug
       run: echo "sha8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
@@ -34,7 +43,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: PicoLimboBridge-Jars
-        path: target/picolimbobridge-*.jar
+        path: |
+          target/picolimbobridge-*.jar
+          target/sha256sum.txt
 
     - name: Update Latest Release
       if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -44,4 +55,6 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: false
         title: "Dev Build ${{ steps.slug.outputs.sha8 }}"
-        files: target/picolimbobridge-*.jar
+        files: |
+          target/picolimbobridge-*.jar
+          target/sha256sum.txt

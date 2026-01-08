@@ -317,26 +317,11 @@ public class PicoLimboManager {
     }
 
     private String fetchUrl(String urlString) throws IOException {
-        URL url = new URL(urlString);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("User-Agent", "PicoLimboBridge");
-        
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder result = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            return result.toString();
-        }
+        return BridgeUtils.fetchUrl(urlString);
     }
 
     private void downloadFile(String urlString, Path destination) throws IOException {
-        URL url = new URL(urlString);
-        try (InputStream in = url.openStream()) {
-            Files.copy(in, destination, StandardCopyOption.REPLACE_EXISTING);
-        }
+        BridgeUtils.downloadFile(urlString, destination);
     }
 
     private void extractZip(Path zipFile, Path outputDir) throws IOException {
@@ -418,17 +403,23 @@ public class PicoLimboManager {
 
     private String fetchExpectedHash() {
         try {
-            String content = fetchUrl(HASHES_URL);
+            URL url = new URL(HASHES_URL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("User-Agent", "PicoLimboBridge");
+
             String osKey = getOsKey();
             String archKey = getArchKey();
             String key = osKey + "-" + archKey;
 
-            try (BufferedReader reader = new BufferedReader(new StringReader(content))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
                 String line;
                 boolean inLatestSection = true; // Assuming start at latest
                 while ((line = reader.readLine()) != null) {
                     if (line.contains("PREVIOUS VERSION")) {
                         inLatestSection = false;
+                        // Optimization: if we are looking for latest and hit previous, we can stop
+                        break; 
                     }
                     
                     if (inLatestSection && line.startsWith(key + ":")) {
@@ -443,15 +434,6 @@ public class PicoLimboManager {
     }
 
     private String calculateSha256(Path path) throws IOException, java.security.NoSuchAlgorithmException {
-        java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
-        try (InputStream fis = Files.newInputStream(path);
-             java.security.DigestInputStream dis = new java.security.DigestInputStream(fis, digest)) {
-            while (dis.read() != -1) ; // Read all bytes
-        }
-        StringBuilder result = new StringBuilder();
-        for (byte b : digest.digest()) {
-            result.append(String.format("%02x", b));
-        }
-        return result.toString();
+        return BridgeUtils.calculateSha256(path);
     }
 }

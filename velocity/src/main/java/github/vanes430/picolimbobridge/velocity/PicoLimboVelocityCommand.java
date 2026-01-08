@@ -4,6 +4,7 @@ import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.command.CommandSource;
 import github.vanes430.picolimbobridge.common.BridgeConstants;
 import github.vanes430.picolimbobridge.common.PicoLimboManager;
+import github.vanes430.picolimbobridge.common.PluginUpdater;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
@@ -13,9 +14,11 @@ import java.util.concurrent.CompletableFuture;
 public class PicoLimboVelocityCommand implements SimpleCommand {
 
     private final PicoLimboManager manager;
+    private final PluginUpdater updater;
 
-    public PicoLimboVelocityCommand(PicoLimboManager manager) {
+    public PicoLimboVelocityCommand(PicoLimboManager manager, PluginUpdater updater) {
         this.manager = manager;
+        this.updater = updater;
     }
 
     @Override
@@ -24,7 +27,7 @@ public class PicoLimboVelocityCommand implements SimpleCommand {
         String[] args = invocation.arguments();
 
         if (args.length < 1) {
-            sendMessage(source, "Usage: /picolimbo <start [port]|stop|reinstall [force]>");
+            sendMessage(source, "Usage: /picolimbo <start [port]|stop|reinstall [force]|update>");
             return;
         }
 
@@ -54,8 +57,10 @@ public class PicoLimboVelocityCommand implements SimpleCommand {
             CompletableFuture.runAsync(() -> manager.reinstall(force)).thenRun(() -> 
                 sendMessage(source, "PicoLimbo reinstall completed.")
             );
+        } else if (sub.equals("update")) {
+            CompletableFuture.runAsync(updater::checkAndUpdate);
         } else {
-             sendMessage(source, "Usage: /picolimbo <start [port]|stop|reinstall [force]>");
+             sendMessage(source, "Usage: /picolimbo <start [port]|stop|reinstall [force]|update>");
         }
     }
 
@@ -65,7 +70,7 @@ public class PicoLimboVelocityCommand implements SimpleCommand {
 
     @Override
     public List<String> suggest(Invocation invocation) {
-        return List.of("start", "stop", "reinstall");
+        return List.of("start", "stop", "reinstall", "update");
     }
 
     @Override

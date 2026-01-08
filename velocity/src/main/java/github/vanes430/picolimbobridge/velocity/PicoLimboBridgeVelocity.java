@@ -11,6 +11,7 @@ import github.vanes430.picolimbobridge.common.PicoLimboManager;
 import github.vanes430.picolimbobridge.common.PicoLogger;
 import github.vanes430.picolimbobridge.common.PlatformUtils;
 
+import github.vanes430.picolimbobridge.common.PluginUpdater;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -41,7 +42,17 @@ public class PicoLimboBridgeVelocity {
 
         // Use 'picolimbo' folder in server root
         limboManager = new PicoLimboManager(Paths.get("picolimbo"), logger);
-        server.getCommandManager().register("picolimbo", new PicoLimboVelocityCommand(limboManager));
+        
+        Path pluginPath = Paths.get("plugins/picolimbobridge-velocity.jar"); // Fallback default
+        try {
+            pluginPath = Paths.get(getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+        } catch (Exception e) {
+            logger.warning("§cCould not determine plugin jar path. Update check might fail.");
+        }
+        
+        PluginUpdater updater = new PluginUpdater(logger, pluginPath, "velocity");
+        
+        server.getCommandManager().register("picolimbo", new PicoLimboVelocityCommand(limboManager, updater));
     }
 
     @Subscribe

@@ -2,6 +2,7 @@ package github.vanes430.picolimbobridge.spigot;
 
 import github.vanes430.picolimbobridge.common.BridgeConstants;
 import github.vanes430.picolimbobridge.common.PicoLimboManager;
+import github.vanes430.picolimbobridge.common.PluginUpdater;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,9 +10,11 @@ import org.bukkit.command.CommandSender;
 public class PicoLimboSpigotCommand implements CommandExecutor {
 
     private final PicoLimboManager manager;
+    private final PluginUpdater updater;
 
-    public PicoLimboSpigotCommand(PicoLimboManager manager) {
+    public PicoLimboSpigotCommand(PicoLimboManager manager, PluginUpdater updater) {
         this.manager = manager;
+        this.updater = updater;
     }
 
     @Override
@@ -51,6 +54,9 @@ public class PicoLimboSpigotCommand implements CommandExecutor {
                 manager.reinstall(force);
                 sendMessage(sender, "PicoLimbo reinstall completed.");
             }).start();
+            return true;
+        } else if (sub.equals("update")) {
+            new Thread(updater::checkAndUpdate).start();
             return true;
         }
 
