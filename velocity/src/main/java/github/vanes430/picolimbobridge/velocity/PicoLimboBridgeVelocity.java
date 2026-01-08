@@ -16,11 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Plugin(
-    id = "picolimbobridge",
-    name = "PicoLimboBridge",
-    version = "1.0.0-SNAPSHOT",
-    description = "A bridge plugin for PicoLimbo on Velocity",
-    authors = {"vanes430"}
+    id = "picolimbobridge"
 )
 public class PicoLimboBridgeVelocity {
 
