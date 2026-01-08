@@ -45,6 +45,7 @@ All commands require the `picolimbobridge.admin` permission.
 | :--- | :--- |
 | `/picolimbo start [port]` | 🟢 Starts the PicoLimbo process. If provided, `[port]` updates the `server.toml` configuration. If the binary is missing, it will be downloaded automatically. |
 | `/picolimbo stop` | 🔴 Gracefully stops the PicoLimbo process. |
+| `/picolimbo update` | 🔍 Manually checks for plugin updates. |
 | `/picolimbo reinstall [force]` | 🔄 Stops the process and re-downloads the latest binary. Use `force` to delete existing configurations (`server.toml`) as well. |
 
 ### Example
