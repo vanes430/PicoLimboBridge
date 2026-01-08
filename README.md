@@ -1,6 +1,6 @@
 # PicoLimboBridge
 
-PicoLimboBridge is a management plugin for [PicoLimbo](https://github.com/Quozul/PicoLimbo) designed for **Spigot/Paper** and **Velocity**.
+PicoLimboBridge is a management plugin for [PicoLimbo](https://github.com/Quozul/PicoLimbo) designed for **Spigot/Paper**, **Folia**, and **Velocity**.
 
 It allows you to automatically download, install, and manage a local PicoLimbo instance directly from your main server or proxy. This is useful for setting up a fallback/limbo server without managing a separate external process manually.
 
@@ -11,11 +11,12 @@ It allows you to automatically download, install, and manage a local PicoLimbo i
 *   **Console Integration**: Forwards PicoLimbo's logs to your server console.
 *   **Configuration Management**: Easily override the binding port via command arguments, which updates the local `server.toml`.
 *   **Auto-Update**: Built-in command to reinstall or update to the latest version.
+*   **Multi-Platform Support**: Fully compatible with Spigot, Paper, Folia, and Velocity.
 
 ## Installation
 
 1.  Download the appropriate artifact for your platform:
-    *   **Spigot/Paper**: `picolimbobridge-spigot-1.0.0-SNAPSHOT.jar`
+    *   **Spigot/Paper/Folia**: `picolimbobridge-spigot-1.0.0-SNAPSHOT.jar`
     *   **Velocity**: `picolimbobridge-velocity-1.0.0-SNAPSHOT.jar`
 2.  Place the jar file into your server's `plugins` folder.
 3.  Start your server.
