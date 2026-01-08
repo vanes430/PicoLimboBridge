@@ -1,0 +1,42 @@
+name: Update PicoLimbo Hashes
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl unzip
+
+      - name: Run hash update script
+        run: cd sha256 && bash update_picolimbo_hashes.sh
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git status --porcelain
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --global user.name "vanes430"
+          git config --global user.email "vanessimbolon2020@gmail.com"
+          git add sha256/latest.txt
+          DATE=$(date +'%Y-%m-%d')
+          git commit -m "docs: update latest.txt on $DATE [skip ci]"
+          git push origin main
