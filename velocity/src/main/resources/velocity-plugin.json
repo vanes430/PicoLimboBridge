@@ -3,6 +3,7 @@
   "name": "PicoLimboBridge",
   "version": "${project.version}",
   "description": "A bridge plugin for PicoLimbo on Velocity",
+  "url": "https://modrinth.com/plugin/picolimbobridge",
   "authors": [
     "vanes430"
   ],

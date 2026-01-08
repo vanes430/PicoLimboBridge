@@ -4,6 +4,7 @@ main: github.vanes430.picolimbobridge.spigot.PicoLimboBridgeSpigot
 api-version: 1.13
 folia-supported: true
 author: vanes430
+website: https://modrinth.com/plugin/picolimbobridge
 commands:
   picolimbo:
     description: Manage the PicoLimbo process
