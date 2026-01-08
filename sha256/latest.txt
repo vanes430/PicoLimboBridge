@@ -1,1 +1,13 @@
-awdwadhbawdawd
+LATEST VERSION (v1.9.1+mc1.21.11)
+linux-aarch64: 3f188a4a30db3444dadaeae7aafe1e624b290dd083c0ca96cf9fa17ad7b5b5e5
+linux-x86_64: 1814ae5dcf3fd0c60c7fad79efbe5bd36933485594bd0e4786dfb304d8b0676c
+macos-aarch64: e067bdb5645810bd443e4b67d91409c28debd24c08a7e0f1dfba928421641469
+windows-x86_64: ddd87c04ad9b961c16eba3cc09ba2df9a0a753a8eac92c973d613dd59661fd60
+
+-------------------- PREVIOUS VERSION (v1.9.0+mc1.21.11) --------------------
+
+PREVIOUS VERSION (v1.9.0+mc1.21.11)
+linux-aarch64: 9d95555f85aa376a71eb533e663d4e1b7476b371d087bca47bb326ad286983f7
+linux-x86_64: 51f0310bf9172750de7110a181a948b048a01675a86b66d0f92e9c0cea7436e8
+macos-aarch64: c11a13c79c16640570ca19879857ae5f85b098da11f0e8ecfa2c7e465ea80e0c
+windows-x86_64: 4950a7535609c19176784048240f3bd9ee56c7ea3ce2106880df7cfe777bd8cf
