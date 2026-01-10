@@ -39,4 +39,4 @@ jobs:
           git add sha256/latest.txt
           DATE=$(date +'%Y-%m-%d')
           git commit -m "docs: update latest.txt on $DATE [skip ci]"
-          git push origin main
+          git push origin master

@@ -24,7 +24,7 @@ import java.util.zip.ZipFile;
 public class PicoLimboManager {
 
     private static final String GITHUB_API_URL = "https://api.github.com/repos/Quozul/PicoLimbo/releases/latest";
-    private static final String HASHES_URL = "https://raw.githubusercontent.com/vanes430/PicoLimboBridge/refs/heads/main/sha256/latest.txt";
+    private static final String HASHES_URL = "https://raw.githubusercontent.com/vanes430/PicoLimboBridge/refs/heads/master/sha256/latest.txt";
     private final Path rootDir;
     private final PicoLogger logger;
     private Process process;
