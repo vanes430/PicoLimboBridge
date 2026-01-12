@@ -15,7 +15,13 @@ get_hashes() {
     local patterns=("linux-aarch64" "linux-x86_64" "macos-aarch64" "windows-x86_64")
     
     for pattern in "${patterns[@]}"; do
-        local asset=$(echo "$release_json" | jq -r ".assets[] | select(.name | contains(\"$pattern\"))")
+        local asset
+        if [[ "$pattern" == "linux"* ]]; then
+            asset=$(echo "$release_json" | jq -r ".assets[] | select(.name | contains(\"$pattern\")) | select(.name | contains(\"gnu\"))")
+        else
+            asset=$(echo "$release_json" | jq -r ".assets[] | select(.name | contains(\"$pattern\"))")
+        fi
+        
         local asset_url=$(echo "$asset" | jq -r ".browser_download_url")
         local asset_name=$(echo "$asset" | jq -r ".name")
         

@@ -262,6 +262,11 @@ public class PicoLimboManager {
             JsonObject asset = el.getAsJsonObject();
             String name = asset.get("name").getAsString();
             if (name.contains(osKey) && name.contains(archKey)) {
+                // For Linux, we explicitly require 'gnu' variant to match the hash generation script
+                if (osKey.equals("linux") && !name.contains("gnu")) {
+                    continue;
+                }
+                
                 downloadUrl = asset.get("browser_download_url").getAsString();
                 assetName = name;
                 break;
