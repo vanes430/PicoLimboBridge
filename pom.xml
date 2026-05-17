@@ -6,7 +6,7 @@
 
     <groupId>github.vanes430</groupId>
     <artifactId>picolimbobridge-parent</artifactId>
-    <version>1.1.0</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>PicoLimboBridge</name>
@@ -27,6 +27,7 @@
     </modules>
 
     <properties>
+        <revision>1.1.1</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>

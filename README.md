@@ -1,10 +1,12 @@
-# PicoLimboBridge 🌉
+# PicoLimboBridge
 
 ![License](https://img.shields.io/badge/License-GPLv3-blue.svg) ![Java](https://img.shields.io/badge/Java-17%2B-orange) ![Platform](https://img.shields.io/badge/Platform-Paper%20|%20Folia%20|%20Velocity-lightgrey)
 
 **PicoLimboBridge** is the ultimate bridge between your Minecraft server and [PicoLimbo](https://github.com/Quozul/PicoLimbo)—the ultra-lightweight Limbo server.
 
 Designed for **Paper**, **Folia**, and **Velocity**, this plugin eliminates the hassle of setting up a separate fallback server. It seamlessly integrates a local PicoLimbo instance directly into your existing infrastructure, saving you time, money, and system resources.
+
+> ⚠️ **Transparency Notice:** To function seamlessly, this plugin will automatically download the official PicoLimbo binary from GitHub and necessary runtime libraries (via Libby) upon its first startup.
 
 ---
 
