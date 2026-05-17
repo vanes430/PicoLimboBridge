@@ -3,6 +3,7 @@ package github.vanes430.picolimbobridge.velocity;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.command.CommandSource;
 import github.vanes430.picolimbobridge.common.BridgeConstants;
+import github.vanes430.picolimbobridge.common.MessageManager;
 import github.vanes430.picolimbobridge.common.PicoLimboManager;
 import github.vanes430.picolimbobridge.common.PluginUpdater;
 import net.kyori.adventure.text.Component;
@@ -11,12 +12,12 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class PicoLimboVelocityCommand implements SimpleCommand {
+public class VelocityCommandManager implements SimpleCommand {
 
     private final PicoLimboManager manager;
     private final PluginUpdater updater;
 
-    public PicoLimboVelocityCommand(PicoLimboManager manager, PluginUpdater updater) {
+    public VelocityCommandManager(PicoLimboManager manager, PluginUpdater updater) {
         this.manager = manager;
         this.updater = updater;
     }
@@ -27,7 +28,7 @@ public class PicoLimboVelocityCommand implements SimpleCommand {
         String[] args = invocation.arguments();
 
         if (args.length < 1) {
-            sendMessage(source, "Usage: /picolimbo <start [port]|stop|reinstall [force]|update>");
+            sendMessage(source, MessageManager.get("command-usage"));
             return;
         }
 
@@ -38,29 +39,38 @@ public class PicoLimboVelocityCommand implements SimpleCommand {
                 try {
                     port = Integer.parseInt(args[1]);
                 } catch (NumberFormatException e) {
-                    sendMessage(source, "Invalid port number.");
+                    sendMessage(source, MessageManager.get("invalid-port"));
                     return;
                 }
             }
 
-            sendMessage(source, "Starting PicoLimbo" + (port != null ? " on port " + port : "") + "...");
+            if (port != null) {
+                sendMessage(source, MessageManager.get("starting-picolimbo-port", port));
+            } else {
+                sendMessage(source, MessageManager.get("starting-picolimbo"));
+            }
+
             Integer finalPort = port;
             CompletableFuture.runAsync(() -> manager.start(finalPort)).thenRun(() -> 
-                sendMessage(source, "PicoLimbo start process completed (check console).")
+                sendMessage(source, MessageManager.get("start-completed"))
             );
         } else if (sub.equals("stop")) {
-            sendMessage(source, "Stopping PicoLimbo...");
+            sendMessage(source, MessageManager.get("stopping-picolimbo"));
             manager.stop();
         } else if (sub.equals("reinstall")) {
             boolean force = args.length > 1 && args[1].equalsIgnoreCase("force");
-            sendMessage(source, "Reinstalling PicoLimbo" + (force ? " (forcing clean)" : "") + "...");
+            if (force) {
+                sendMessage(source, MessageManager.get("reinstalling-picolimbo-force"));
+            } else {
+                sendMessage(source, MessageManager.get("reinstalling-picolimbo"));
+            }
             CompletableFuture.runAsync(() -> manager.reinstall(force)).thenRun(() -> 
-                sendMessage(source, "PicoLimbo reinstall completed.")
+                sendMessage(source, MessageManager.get("reinstall-completed"))
             );
         } else if (sub.equals("update")) {
             CompletableFuture.runAsync(updater::checkAndUpdate);
         } else {
-             sendMessage(source, "Usage: /picolimbo <start [port]|stop|reinstall [force]|update>");
+             sendMessage(source, MessageManager.get("command-usage"));
         }
     }
 

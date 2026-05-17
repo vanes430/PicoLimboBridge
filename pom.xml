@@ -6,16 +6,23 @@
 
     <groupId>github.vanes430</groupId>
     <artifactId>picolimbobridge-parent</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
 
     <name>PicoLimboBridge</name>
-    <description>A bridge plugin for PicoLimbo on Spigot and Velocity</description>
+    <description>A bridge plugin for PicoLimbo on Paper and Velocity</description>
     <url>https://github.com/vanes430/PicoLimboBridge</url>
+
+    <repositories>
+        <repository>
+            <id>AlessioDP</id>
+            <url>https://repo.diogotc.com/releases/</url>
+        </repository>
+    </repositories>
 
     <modules>
         <module>common</module>
-        <module>spigot</module>
+        <module>paper</module>
         <module>velocity</module>
     </modules>
 

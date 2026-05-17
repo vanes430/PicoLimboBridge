@@ -5,16 +5,16 @@
     <parent>
         <artifactId>picolimbobridge-parent</artifactId>
         <groupId>github.vanes430</groupId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>picolimbobridge-spigot</artifactId>
+    <artifactId>picolimbobridge-paper</artifactId>
 
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
             <id>sonatype</id>
@@ -29,20 +29,15 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
             <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-api</artifactId>
-            <version>4.14.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-text-serializer-legacy</artifactId>
-            <version>4.14.0</version>
+            <groupId>com.rexcantor64</groupId>
+            <artifactId>libby-bukkit</artifactId>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 
@@ -69,11 +64,15 @@
                             <relocations>
                                 <relocation>
                                     <pattern>github.vanes430.picolimbobridge.common</pattern>
-                                    <shadedPattern>github.vanes430.picolimbobridge.spigot.common</shadedPattern>
+                                    <shadedPattern>github.vanes430.picolimbobridge.paper.common</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>org.apache.commons</pattern>
-                                    <shadedPattern>github.vanes430.picolimbobridge.spigot.libs.commons</shadedPattern>
+                                    <shadedPattern>github.vanes430.picolimbobridge.paper.libs.commons</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>net.byteflux.libby</pattern>
+                                    <shadedPattern>github.vanes430.picolimbobridge.paper.libs.libby</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

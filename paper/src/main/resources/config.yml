@@ -1,0 +1,4 @@
+# PicoLimboBridge Configuration
+
+# auto start the limbo server when server fully started (disabled by default you need to configure the server.toml first)
+autostart-enabled: false

@@ -7,5 +7,5 @@
   "authors": [
     "vanes430"
   ],
-  "main": "github.vanes430.picolimbobridge.velocity.PicoLimboBridgeVelocity"
+  "main": "github.vanes430.picolimbobridge.velocity.VelocityBridge"
 }
