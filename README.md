@@ -1,10 +1,10 @@
 # PicoLimboBridge 🌉
 
-![License](https://img.shields.io/badge/License-GPLv3-blue.svg) ![Java](https://img.shields.io/badge/Java-17%2B-orange) ![Platform](https://img.shields.io/badge/Platform-Spigot%20|%20Paper%20|%20Folia%20|%20Velocity-lightgrey)
+![License](https://img.shields.io/badge/License-GPLv3-blue.svg) ![Java](https://img.shields.io/badge/Java-17%2B-orange) ![Platform](https://img.shields.io/badge/Platform-Paper%20|%20Folia%20|%20Velocity-lightgrey)
 
 **PicoLimboBridge** is the ultimate bridge between your Minecraft server and [PicoLimbo](https://github.com/Quozul/PicoLimbo)—the ultra-lightweight Limbo server.
 
-Designed for **Spigot/Paper**, **Folia**, and **Velocity**, this plugin eliminates the hassle of setting up a separate fallback server. It seamlessly integrates a local PicoLimbo instance directly into your existing infrastructure, saving you time, money, and system resources.
+Designed for **Paper**, **Folia**, and **Velocity**, this plugin eliminates the hassle of setting up a separate fallback server. It seamlessly integrates a local PicoLimbo instance directly into your existing infrastructure, saving you time, money, and system resources.
 
 ---
 
@@ -25,13 +25,13 @@ Designed for **Spigot/Paper**, **Folia**, and **Velocity**, this plugin eliminat
 *   **🔒 Integrity Protection**: Automatically verifies the SHA-256 hash of the PicoLimbo binary against a trusted upstream source. If a mismatch or corruption is detected, it self-heals by re-downloading the correct version.
 *   **🔔 Update Checker**: Stay informed with polite, non-intrusive notifications when a new version of the bridge is available on GitHub/Modrinth.
 *   **🔄 Auto-Binary-Update**: built-in tools to reinstall or upgrade to the latest PicoLimbo binary with a single command.
-*   **🌐 Multi-Platform**: One bridge to rule them all—fully compatible with Spigot, Paper, Folia, and Velocity.
+*   **🌐 Multi-Platform**: One bridge to rule them all—fully compatible with Paper, Folia, and Velocity.
 
 ## 📦 Installation
 
-1.  **Download** the appropriate artifact for your platform from [Releases](https://github.com/vanes430/PicoLimboBridge/releases):
-    *   **Spigot/Paper/Folia**: `picolimbobridge-spigot-1.0.0.jar`
-    *   **Velocity**: `picolimbobridge-velocity-1.0.0.jar`
+1.  **Download** the appropriate artifact for your platform from [Modrinth](https://modrinth.com/plugin/picolimbobridge):
+    *   **Paper/Folia**: `picolimbobridge-paper-<version>.jar`
+    *   **Velocity**: `picolimbobridge-velocity-<version>.jar`
 2.  **Drop** the jar file into your server's `plugins` folder.
 3.  **Start** your server. That's it!
 
@@ -64,10 +64,6 @@ git clone https://github.com/vanes430/PicoLimboBridge.git
 cd PicoLimboBridge
 mvn clean install
 ```
-
-The compiled jars will be located in:
-*   `spigot/target/picolimbobridge-spigot-1.0.0.jar`
-*   `velocity/target/picolimbobridge-velocity-1.0.0.jar`
 
 ## 🏆 Credits
 

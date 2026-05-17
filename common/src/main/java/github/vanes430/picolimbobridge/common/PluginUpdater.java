@@ -16,7 +16,7 @@ public class PluginUpdater {
     
     private final PicoLogger logger;
     private final Path pluginJar;
-    private final String platform; // "spigot" or "velocity"
+    private final String platform; // "paper" or "velocity"
 
     public PluginUpdater(PicoLogger logger, Path pluginJar, String platform) {
         this.logger = logger;
@@ -25,7 +25,7 @@ public class PluginUpdater {
     }
 
     public void checkAndUpdate() {
-        logger.info("§eChecking for plugin updates...");
+        logger.info(MessageManager.get("plugin-checking-updates"));
         
         try {
             // 1. Fetch latest release info
@@ -44,7 +44,7 @@ public class PluginUpdater {
             }
 
             if (sha256Url == null) {
-                logger.warning("§csha256sum.txt not found in latest release.");
+                logger.warning(MessageManager.get("sha256-not-found"));
                 return;
             }
 
@@ -56,9 +56,6 @@ public class PluginUpdater {
             try (BufferedReader reader = new BufferedReader(new StringReader(hashesContent))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    // Look for the line corresponding to our platform
-                    // picolimbobridge-spigot-1.0.0-SNAPSHOT.jar
-                    // picolimbobridge-velocity-1.0.0-SNAPSHOT.jar
                     if (line.contains("picolimbobridge-" + platform)) {
                         String[] parts = line.trim().split("\\s+");
                         if (parts.length >= 1) {
@@ -70,7 +67,7 @@ public class PluginUpdater {
             }
 
             if (expectedHash == null) {
-                logger.warning("§cCould not find hash for " + platform + " in sha256sum.txt");
+                logger.warning(MessageManager.get("hash-not-found", platform));
                 return;
             }
 
@@ -78,15 +75,15 @@ public class PluginUpdater {
             String localHash = BridgeUtils.calculateSha256(pluginJar);
             
             if (localHash.equalsIgnoreCase(expectedHash)) {
-                logger.info("§aYou are running the latest version: " + tagName + " ..");
+                logger.info(MessageManager.get("plugin-latest-version", tagName));
             } else {
-                logger.warning("§eA new update is available: " + tagName + " ..");
-                logger.warning("§7Please consider updating to get the latest features and fixes.");
-                logger.warning("§bDownload here: §n" + MODRINTH_URL);
+                logger.warning(MessageManager.get("plugin-update-available", tagName));
+                logger.warning(MessageManager.get("plugin-update-consider"));
+                logger.warning(MessageManager.get("plugin-download-here", MODRINTH_URL));
             }
 
         } catch (Exception e) {
-            logger.severe("§cUpdate check failed: " + e.getMessage());
+            logger.severe(MessageManager.get("plugin-update-failed", e.getMessage()));
         }
     }
 }
