@@ -1,13 +1,13 @@
-LATEST VERSION (v1.14.0-beta.1+mc26.3-pre-2)
+LATEST VERSION (v1.14.0+mc26.3)
+linux-aarch64: 9f924e29ab5f82c0430a397d4a48a1105927b43beaee9a56b340dbd0957fca86
+linux-x86_64: b8a8eacb7022301698b93f06ba1180a15450e95cee9ab9166f9164586fa7f7b9
+macos-aarch64: 51794b7aaee7df776d281d4a10b83cd487dca345d70307c342030a913321f435
+windows-x86_64: 9158c5888c0bacdf02abe5546179b177b5dc328dac8943df1df647804a0ebedf
+
+-------------------- PREVIOUS VERSION (v1.14.0-beta.1+mc26.3-pre-2) --------------------
+
+PREVIOUS VERSION (v1.14.0-beta.1+mc26.3-pre-2)
 linux-aarch64: 0380589a9029c671759ba632f9a7fc870afe064b87ce0774ace21146827da147
 linux-x86_64: 7166ebef2833f8718869e08a794e96e32b5178017f37ee91b50937c31ae8aa48
 macos-aarch64: 161e2d3c27be53a194b69270997f3f8da6e60ae931b742319810b49e8b9f1a87
 windows-x86_64: 9595f137472ba2dd68f589a4f9bc1cc0103bcda11253adbf0d5a2610255df2b8
-
--------------------- PREVIOUS VERSION (v1.13.2+mc26.2) --------------------
-
-PREVIOUS VERSION (v1.13.2+mc26.2)
-linux-aarch64: 536e096bcbf9fb5ae109cc328bf3ffadeb9c8dfbfb50c6eeda3a4669be1e4acb
-linux-x86_64: 0a366622626f2886360ef216fe70e6cef3d6e837007d314e42ee784f39a916c1
-macos-aarch64: c727d6ab6c10a5c64101261af137df5ff48ab350c870b5c4f7ded1fb3125d1ee
-windows-x86_64: 10da5a630846a3177597bcc74b9f32222bbe9839217deff2be8e4ea78e339307
